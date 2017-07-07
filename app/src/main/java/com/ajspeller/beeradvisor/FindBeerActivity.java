@@ -6,7 +6,11 @@ import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class FindBeerActivity extends Activity {
+
+    private BeerExpert beerexpert = new BeerExpert();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +24,14 @@ public class FindBeerActivity extends Activity {
         TextView brands = findViewById(R.id.brands);
         Spinner color = findViewById(R.id.color);
         String beerType = (color.getSelectedItem()).toString();
-        brands.setText(beerType);
+
+        List<String> brandsList = beerexpert.getBrands(beerType);
+        StringBuilder brandsFormatted = new StringBuilder();
+        for (String brand : brandsList) {
+            brandsFormatted.append(brand).append('\n');
+        }
+
+        brands.setText(brandsFormatted);
 
     }
 }
